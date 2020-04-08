@@ -28,18 +28,38 @@ Create Macvlan network - directly connected to the physical network
 
 Overlay Networks allow you to combine multiple separate Docker hosts into one logical network and containers can communicate across hosts.
 
-```angular2
-docker swarm init --advertise-addr=<Manager IP>
 
-docker network ls
+    docker swarm init --advertise-addr=<Manager IP>
+    
+    docker network ls
+    
+    docker network create -d overlay nginx-net
+    
+    docker service create --name my-nginx --publish target=80,published=80 replicas=3 --network nginx-net nginx
+    
+    docker network ls
+    
+    docker service ps my-nginx
 
-docker network create -d overlay nginx-net
 
-docker service create --name my-nginx --publish target=80,published=80 replicas=3 --network nginx-net nginx
 
-docker network ls
+### Docker Compose
 
-docker service ps my-nginx
+DEfine how one or more containers are bult and run.
+Create composite applications from groups of inter-dependant containers.
+Uses YAML format: `docker-compose.yml`
 
-```
+Compose allows to describe:
+* Multiple containers
+* Network ports
+* Environmental variables
+* Attached volumes
+* Networks
+* Linkage between containers
+* Define start-up order
+* Build steps -> Buildfiles, context and build args
+
+`docker-compose up -d`
+
+`docker-compose logs --follow`
 
